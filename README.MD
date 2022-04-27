@@ -1,5 +1,5 @@
-# Social-STGCNN: A Social Spatio-Temporal Graph Convolutional Neural Network for Human Trajectory Prediction
-### Abduallah Mohamed, Kun Qian <br />
+# STMGCN: ASpatio-Temporal Multi-Graph Convolutional Neural Network for Human Trajectory Prediction
+### Taki Youssef, Kun Qian <br />
 ### Mohamed Elhoseiny** , Christian Claudel**
 ##### <sup>**</sup> Equal advising
 Read full paper <a href="https://arxiv.org/abs/2002.11927">here</a>, Presented at [CVPR 2020](http://cvpr2020.thecvf.com/)
