@@ -11,9 +11,6 @@ we propose a Spatio-Temporal Multi-Graphs Convolutional Network (STMGCN), which 
 
 
 #### Model
-<div align='center'>
-<img src="images/social-stgcnn-model.jpg"></img>
-</div>
 <br />
 Social-STGCNN model consists of 2 building blocks: <br />
 1- ST-GCNN: A Spatio-Tempral Graph CNN that creates a spatio-temporal graph embedding representing the previous pedestrians trajectories. <br />
@@ -25,12 +22,6 @@ More details are in this description video:<br />
 [![Social-STGCNN description](https://img.youtube.com/vi/Yi9rVHJM8WY/0.jpg)](https://www.youtube.com/watch?v=Yi9rVHJM8WY)
 </div>
 
-#### Predictions sample
-
-<div align='center'>
-<img src="images/social-stgcnn-pred.gif"></img>
-</div>
-<br />
 
 ### Setup: 
 The code was written using python 3.6. 
