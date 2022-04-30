@@ -1,9 +1,9 @@
 # STMGCN: ASpatio-Temporal Multi-Graph Convolutional Neural Network for Human Trajectory Prediction
 ### Taki Youssef
 
-### Social-STGCNN
+### STM-GCN
 <div align='center'>
-<img src="images/Social-STGCNN-Teaser_.jpg"></img>
+<img src="images/pic1.jpg"></img>
 </div>
 <br />
 we propose a Spatio-Temporal Multi-Graphs Convolutional Network (STMGCN), which collects information about the social interactions of pedestrians in a crowd by focusing on extracting the largest number of relationships and creating multiple graphs,  Our results show an improvement over the state of art by 10\% on the Final Displacement Error (FDE) and  6\%  on the Average Displacement Error (ADE).
