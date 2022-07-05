@@ -30,6 +30,13 @@ from model import *
 
 parser = argparse.ArgumentParser()
 
+# random seed
+seed =0
+np.random.seed(seed)
+torch.manual_seed(seed)
+torch.cuda.manual_seed(seed)
+# random.seed(seed)
+
 #Model specific parameters
 parser.add_argument('--input_size', type=int, default=2)
 parser.add_argument('--output_size', type=int, default=5)

@@ -26,7 +26,7 @@ def anorm(p1,p2):
         return 0
     return 1/(NORM)
                 
-def seq_to_graph(seq_,seq_rel,norm_lap_matr = True):
+def seq_to_graph0(seq_,seq_rel,norm_lap_matr = True):
     seq_ = seq_.squeeze()
     seq_rel = seq_rel.squeeze()
     seq_len = seq_.shape[2]
@@ -34,23 +34,57 @@ def seq_to_graph(seq_,seq_rel,norm_lap_matr = True):
 
     
     V = np.zeros((seq_len,max_nodes,2))
-    A = np.zeros((seq_len,max_nodes,max_nodes))
+    A0 = np.zeros((seq_len,max_nodes,max_nodes))
     for s in range(seq_len):
         step_ = seq_[:,:,s]
         step_rel = seq_rel[:,:,s]
         for h in range(len(step_)): 
             V[s,h,:] = step_rel[h]
-            A[s,h,h] = 1
+            A0[s,h,h] = 1
             for k in range(h+1,len(step_)):
                 l2_norm = anorm(step_rel[h],step_rel[k])
-                A[s,h,k] = l2_norm
-                A[s,k,h] = l2_norm
+                A0[s,h,k] = l2_norm
+                A0[s,k,h] = l2_norm
         if norm_lap_matr: 
-            G = nx.from_numpy_matrix(A[s,:,:])
-            A[s,:,:] = nx.normalized_laplacian_matrix(G).toarray()
+            G = nx.from_numpy_matrix(A0[s,:,:])
+            A0[s,:,:] = nx.normalized_laplacian_matrix(G).toarray()
             
     return torch.from_numpy(V).type(torch.float),\
-           torch.from_numpy(A).type(torch.float)
+           torch.from_numpy(A0).type(torch.float)
+           
+           
+           
+ 
+def seq_to_graph1(seq_,seq_rel,norm_lap_matr = True):
+    seq_ = seq_.squeeze()             # seq_(max_nodes,2,seq_len)
+    seq_rel = seq_rel.squeeze()
+    seq_len = seq_.shape[2]
+    max_nodes = seq_.shape[0]
+    
+    V1 = np.zeros((seq_len,max_nodes,2))
+    A1 = np.zeros((seq_len,max_nodes,max_nodes))
+    for h in range(max_nodes):
+        traj_ = seq_[h,:,:]
+        traj_rel = seq_rel[h,:,:]
+
+        for s in range(seq_len-1):
+             V1[s+1,h,:] = traj_[:,s+1]-traj_[:,s]
+             A1[s,h,h] = 1
+             
+    for s in range(seq_len-1):
+        for h in range(max_nodes):
+            for k in range(h,max_nodes):
+                l2_norm = anorm(V1[s,h],V1[s,k])
+                A1[s,h,k] = l2_norm
+                A1[s,k,h] = l2_norm
+        if norm_lap_matr: 
+            G1 = nx.from_numpy_matrix(A1[s,:,:])
+            A1[s,:,:] = nx.normalized_laplacian_matrix(G1).toarray()
+            
+    return  torch.from_numpy(A1).type(torch.float)
+ 
+ 
+ 
 
 
 def poly_fit(traj, traj_len, threshold):
@@ -203,10 +237,14 @@ class TrajectoryDataset(Dataset):
 
             start, end = self.seq_start_end[ss]
 
-            v_,a_ = seq_to_graph(self.obs_traj[start:end,:],self.obs_traj_rel[start:end, :],self.norm_lap_matr)
+            v_,a_0 = seq_to_graph0(self.obs_traj[start:end,:],self.obs_traj_rel[start:end, :],self.norm_lap_matr)
+            a_1 = seq_to_graph1(self.obs_traj[start:end,:],self.obs_traj_rel[start:end, :],self.norm_lap_matr)
+            a_=a_0+a_1
             self.v_obs.append(v_.clone())
             self.A_obs.append(a_.clone())
-            v_,a_=seq_to_graph(self.pred_traj[start:end,:],self.pred_traj_rel[start:end, :],self.norm_lap_matr)
+            v_,a_0=seq_to_graph0(self.pred_traj[start:end,:],self.pred_traj_rel[start:end, :],self.norm_lap_matr)
+            a_1=seq_to_graph1(self.pred_traj[start:end,:],self.pred_traj_rel[start:end, :],self.norm_lap_matr)
+            a_=a_0+a_1
             self.v_pred.append(v_.clone())
             self.A_pred.append(a_.clone())
         pbar.close()
