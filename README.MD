@@ -1,36 +1,21 @@
 # STMGCN: ASpatio-Temporal Multi-Graph Convolutional Neural Network for Human Trajectory Prediction
 ### Taki Youssef
 
-### Social-STGCNN
+### STM-GCN
 <div align='center'>
-<img src="images/Social-STGCNN-Teaser_.jpg"></img>
+<img src="images/pic1.jpg"></img>
 </div>
 <br />
-we propose a Spatio-Temporal Multi-Graphs Convolutional Network (STMGCN), which collects information about the social interactions of pedestrians in a crowd by focusing on extracting the largest number of relationships and creating multiple graphs,  Our results show an improvement over the state of art by 10\% on the Final Displacement Error (FDE) and  6\%  on the Average Displacement Error (ADE).
+we propose a Spatio-Temporal Multi-Graphs Convolutional Network (STMGCN), which collects information about the social interactions of pedestrians in a crowd by focusing on extracting the largest number of relationships and creating multiple graphs,  Our results show an improvement over the state of art by 10% on the Final Displacement Error (FDE) and  6%  on the Average Displacement Error (ADE).
 
 
 
 #### Model
-<div align='center'>
-<img src="images/social-stgcnn-model.jpg"></img>
-</div>
 <br />
 Social-STGCNN model consists of 2 building blocks: <br />
 1- ST-GCNN: A Spatio-Tempral Graph CNN that creates a spatio-temporal graph embedding representing the previous pedestrians trajectories. <br />
 2- TXP-CNN: A Time-Extrapolator CNN that utilizes the spatio-temporal graph embedding to predict future trajectories.<br />
 
-More details are in this description video:<br /> 
-<div align='center'>
-  
-[![Social-STGCNN description](https://img.youtube.com/vi/Yi9rVHJM8WY/0.jpg)](https://www.youtube.com/watch?v=Yi9rVHJM8WY)
-</div>
-
-#### Predictions sample
-
-<div align='center'>
-<img src="images/social-stgcnn-pred.gif"></img>
-</div>
-<br />
 
 ### Setup: 
 The code was written using python 3.6. 
