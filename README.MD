@@ -1,4 +1,4 @@
-# STMGCN: ASpatio-Temporal Multi-Graph Convolutional Neural Network for Human Trajectory Prediction
+# STMGCN: A Spatio-Temporal Multi-Graph Convolutional Neural Network for Human Trajectory Prediction
 ### Taki Youssef
 
 ### STM-GCN
